@@ -1,80 +1,48 @@
-import { useState } from "react";
-
-
-const App = () => {
-  const [user, setUser] = useState({name: 'A', email:'a@gmail.com'})
-  const [arr, setArr] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15])
-  const [users, setUsers] = useState([{name: 'A', email:'a@gmail.com'}, 
-                                      {name: 'B', email:'b@gmail.com'},
-                                      {name: 'C', email:'c@gmail.com'}])
-  const [count, setCount] = useState(0)
-  ///////////
-
-  const onClick = () => {
-    setCount(count + 1)
-    const newUser = {
-      ...user,
-      email: `${user.name}${count + 1}@gmail.com`
-    }
-    setUser(newUser)
-  }
-  ////////////
-
-  const onClick2 = () => {
-    const newArr = arr.map((item) => {
-    return item *2
-    })
-    setArr(newArr)
-  }
-  //////
-
-    const onClick3 = () => {
-      const newArr = arr.filter((item) => {
-        return item % 3 === 0
-      })
-      setArr(newArr)
-
-    }
-    ///
-    const onClick4 = () => {
-      const newUsers = users.map((item) => {
-        if(item.name === 'A' ) {
-          return { name: 'D', email: 'd@gmail.com'}
-        }
-      })
-      return item
-      }
+import {useState} from "react"
+const Bai2 = () => {
+    const [user, setUser] = useState ({name: "", email: ''})//khong dc dung forEach, map, find, filter
     
-////
-    // const onClick5 = () => {
-    //   setUsers([
-    //     ...user, //giữ lại các phần tử của array sau đó thêm phần tử D vào
-    //     {name: 'D', email: 'd@gmail.com'}
-    //   ])
-    //   }
+    const [userList, setUserList] = useState([
+      {name: '123', email: '123@gmail.com'}, 
+      {name: '456', email: '456@gmail.com'}])
 
+    const onClick = () => {
+      setUserList([
+        ...userList,
+        user
+      ]);
 
-  return (
-    <div>
-      {users.map((item) => {
-        return (
-          <div>
-            <div> Ten la: {item.name} </div>
-            <div> Email la: {item.email}</div>
-          </div>
-        )
-      })}
+      setUser({name: "", email: ''})
+    }
+    const onChange = (e) => {
+      // const name = e.target.name
+      // const value = e.target.value
+      setUser({
+        ...user,
+        [e.target.name]: e.target.value
+      })
+    };
+    return (
+      ///Cau 1: input ra man hinh "Hoc sinh co ma so 123, diem so la 10"
+      //Cau2: input ra man hinh List hoc sinh
+        <div>
+             <div>
+                <input name = 'name' value={user.name} placeholder="name" onChange ={onChange}/>
+                <input name = 'email' value={user.email} placeholder="email"  onChange={onChange} />
 
-        <div>Tên là: {user.name}</div>
-        <div>Email là: {user.email}</div>
-        <div>Count là: {count}</div>
-        <button onClick={onClick}>Click me 1 </button>
-        <button onClick={onClick2}>Click me 2</button>
-        <button onClick={onClick3}>Click me 3</button>
-        <button onClick={onClick4}>Click me 4</button>
-        {/* <button onClick={onClick5}>Click me 5</button> */}
-    </div>
-  );
+                <button onClick = {onClick}>Add</button>
+              </div>
+            {/* {`Hoc sinh co ma so ${student.id}, diem so la: ${student.score}`} */}
+            {userList.map((item) => {
+              return (
+                <div>
+                    <div> Ma so hoc sinh: {item.name}</div>
+                    <div>Diem so: {item.email}</div>
+                </div>
+              );
+            })}
+            <button onClick = {onClick}> Click here</button>
+        </div>
+    )
 }
-
-export default App;
+export default Bai2;
